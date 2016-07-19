@@ -1,0 +1,701 @@
+
+@keyframes text {
+    0% { color: darkred;
+            text-shadow: 2px 2px 2px transparent; }
+    50% { color: #232323;
+            text-shadow: 2px 2px 0 black; }
+    100% { color: darkred;
+            text-shadow: 2px 2px 2px transparent; }
+}
+@keyframes frame {
+    0% { border: 15px dashed #232323; }
+    50% { border: 15px dashed red; }
+    100% { border: 15px dashed #232323; }
+}
+@keyframes blackout {
+    0% { background-color: black;
+         z-index: 130; }
+    90% { z-index: -2; }
+    100% { background-color: #232323;
+           z-index: -2; }
+}
+@keyframes top_side {
+    40% { transform: scaleX(1); }
+    60% { transform: scaleX(1); }
+    100% { transform: translateY(-250px); }
+}
+@keyframes bottom_side {
+    40% { transform: scaleX(1); }
+    60% { transform: scaleX(1); }
+    100% { transform: translateY(250px); }
+}
+@keyframes vertical_lines {
+    25% { opacity: 1; }
+    75% { opacity: 1; }
+    100% { opacity: 0; }
+}
+@keyframes photo {
+    40% { opacity: 1; }
+    45% { width: 300px;
+          height: 400px;
+          top: 50px;
+          left: 50px;
+          background-position: 0 0; }
+    60% { width: 150px;
+          height: 200px;
+          box-shadow: 0 0 5px 2px black;
+          top: 100px;
+          left: 125px;
+          background-position: -80px -50px;
+          transform: translate(0px, 0px); }
+    100% { opacity: 1;
+           box-shadow: 0 0 0 0 transparent;
+           width: 150px;
+           height: 200px;
+           top: 100px;
+           left: 125px;
+           background-position: -80px -50px;
+           transform: translate(-115px, -40px); }
+}
+@keyframes reload {
+    10% { color: red;
+          background-color: white; }
+    40% { color: white;
+          background-color: red; }
+    60% { color: white;
+          background-color: red; }
+    90% { color: red;
+          background-color: white; }      
+    100% { color: red;
+          background-color: white; }
+}
+@keyframes reload-bg {
+    10% { background-color: white;
+          transform: scaleX(1) scaleY(1);
+          opacity: 1; }
+    20% { opacity: 1; }
+    40% { background-color: red;
+          transform: scaleX(1.15) scaleY(1.5);
+          opacity: 0; }
+    100% { background-color: red;
+          transform: scaleX(1.15) scaleY(1.5);
+          opacity: 0; }
+}
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #232323;
+    font-family: 'Arial', sans-serif;
+}
+h2, h3 {
+    line-height: 1em;
+}
+span, p {
+    font-size: 16px;
+    line-height: 17px;
+}
+input[type="radio"] {
+    display: none;
+}
+label.reload::before,
+label.reload::after,
+div.main::before,
+div.main::after,
+div.content::before,
+div.content::after,
+div.inner::before,
+div.inner::after,
+div.vertical-lines::before,
+div.vertical-lines::after,
+div.content label::before,
+div.content label::after,
+div.slider > div::before,
+div.slider > div:first-child::after,
+div.slider > div:nth-child(1) p:not(:last-child)::after {
+    content: '';
+    display: block;
+    position: absolute;
+}
+.blackout {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    box-sizing: border-box;
+    animation: frame 4s linear 2s infinite,
+               blackout 2s ease-in-out forwards;
+}
+#initiator:checked ~ .blackout {
+    animation: none;
+}
+.main {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    text-align: center;
+    width: 400px;
+    height: 500px;
+}
+.main::before,
+.main::after {
+    width: 100%;
+    height: 10px;
+    z-index: 1;
+    transform: scaleX(0);
+    transform-origin: 0%;
+    background-color: orangered;
+    top: 245px;
+    left: 0;
+}
+
+#initiator:checked ~ .main::before {
+    animation: top_side 2s linear 2s 1 forwards;
+    transition: 1.5s all ease 3s;
+}
+#initiator:checked ~ .main::after {
+    animation: bottom_side 2s linear 2s 1 forwards;
+    transition: 1.5s all ease 3s;
+}
+h1.title {
+    position: absolute;
+    top: 0px;
+    left: -60px;
+    font-size: 60px;
+    color: black;
+    text-transform: uppercase;
+    letter-spacing: 15px;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+    text-shadow: 0 0 5px black;
+    transition-property: transform, color, text-shadow;
+    transition-duration: 0.5s;
+}
+#initiator:checked ~ .main h1.title {
+    font-size: 40px;
+    letter-spacing: 5px;
+    color: darkred;
+    text-shadow: 0 0 0 black;
+    animation: text 7s 2s infinite;
+    transform: rotate(-90deg) translate(-227px, -115px);
+    -moz-transform: rotate(-90deg) translate(-227px, -115px);
+    transition: 1.5s all 0.5s;
+    -moz-transition: 1.5s all 0.5s;
+}
+
+label.show {
+    padding: 0;
+    position: absolute;
+    width: 52%;
+    top: 30%;
+    left: 24%;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.5em;
+    letter-spacing: 10px;
+    z-index: 100;
+    text-transform: uppercase;
+    color: black;
+    cursor: pointer;
+    transition-property: transform, color, text-shadow, opacity, z-index;
+    transition-duration: 1s;
+}
+label.show:hover {
+    color: orangered;
+    text-shadow: -10px -10px 3px black;
+    transform: scale(1.3);
+}
+label.show:hover + h1 {
+    transform: scale(1.3);
+    color: red;
+    text-shadow: -15px -15px 5px black;
+    opacity: 1;
+}
+#initiator:checked ~ .main label.show {
+    transform: scale(2);
+    text-shadow: -20px -20px 10px #232323;
+    opacity: 0;
+    color: black;
+    z-index: 0;
+}
+label.reload {
+    position: absolute;
+    left: 250px;
+    top: 0;
+    width: 130px;
+    height: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 4px;
+    background-color: white;
+    text-align: right;
+    line-height: 30px;
+    color: red;
+    opacity: 0;
+    text-shadow: 0 0 2px black;
+    transform-origin: 0 50%;
+    transform: rotate(180deg);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
+    transition: 0.7s transform, 1.5s left, 0s opacity;
+}
+label.reload:hover {
+    transform: none;
+    animation: reload 2s linear 0.7s infinite;
+}
+label.reload::before {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    z-index: -1;
+}
+label.reload:hover::before {
+    animation: reload-bg 2s linear 0.7s infinite;
+}
+label.reload::after {
+    width: 40px;
+    height: 40px;
+    left: -20px;
+    top: -5px;
+    border-radius: 50%;
+    background-color: orangered;
+    transition: 0.5s all;
+}
+#initiator:checked ~  .main label.reload {
+    left: 400px;
+    opacity: 1;
+    transition-delay: 0s, 16s, 10s;
+}
+.main .content {
+    width: 100%;
+    height: 100%;
+    transform: scaleY(0);
+    box-sizing: border-box;
+    border-width: 0px 2px;
+    border-style: solid;
+    border-color: orangered;
+}
+#initiator:checked ~ .main .content {
+    transform: scaleY(1);
+    transition: 0.8s transform linear 3.2s;
+}
+.main .content::before,
+.main .content::after {
+    top: 0;
+    width: 25%;
+    height: 100%;
+    z-index: 1;
+    background-color: #111111;
+    transition: 1s transform linear;
+}
+.main .content::before {
+    left: 25%;
+    transform-origin: 0% 100%;
+}
+.main .content::after {
+    left: 50%;
+    transform-origin: 0% 0%;
+}
+#initiator:checked ~ .main .content::before,
+#initiator:checked ~ .main .content::after {
+    transform: scaleY(0);
+    transition-delay: 6.3s;
+}
+.main .content .vertical-lines,
+.main .content .vertical-lines::before, 
+.main .content .vertical-lines::after {
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    opacity: 0;
+    background-color: orangered;
+    box-shadow: 0 0 3px orangered;
+}
+.main .content .vertical-lines {
+    left: 197px;
+    z-index: 2;
+}
+.main .content .vertical-lines::before {
+    left:-99px;
+}
+.main .content .vertical-lines::after {
+    right:-99px;
+}
+#initiator:checked ~ .main .content .vertical-lines,
+#initiator:checked ~ .main .content .vertical-lines::before,
+#initiator:checked ~ .main .content .vertical-lines::after {
+    animation: vertical_lines 4.5s linear 4.2s 1 forwards;
+}
+.main .content label {
+    position: absolute;
+    display: block;
+    height: 8px;
+    width: 30px;
+    bottom: 10px;;
+    z-index: -1;
+    background: transparent;
+    cursor: pointer;
+    transition-property: bottom, background-color, transform;    
+    transition-duration: 0.7s, 0.5s, 0.5s;
+}
+.main .content label::before {
+    width: 100%;
+    height: 6px;
+    top: 1px;
+    background-color: darkred;
+    transition-property: top, transform, width, background-color;
+    transition-duration: 0.4s;
+    transition-delay: 0.6s, 0s, 0s, 0s;
+    transition-timing-function: linear, ease-out, ease-out, ease-out;
+}
+.main .content label::after {
+    width: 100%;
+    height: 6px;
+    bottom: 1px;
+    background-color: darkred;
+    transition-property: bottom, transform, width, background-color;
+    transition-duration: 0.4s;
+    transition-delay: 0.6s, 0s, 0s, 0s;
+    transition-timing-function: linear, ease-out, ease-out, ease-out;
+}
+.main .content label:hover::before {
+    transform: translateY(-8px);
+}
+.main .content label:hover::after {
+    transform: translateY(8px);
+}
+#initiator:checked ~ .main .content #lb-1 {
+    left: 27%;
+    transition-delay: 15.8s, 0s, 0s;
+}
+#initiator:checked ~ .main .content #lb-2 {
+    left: 46.25%;
+    transition-delay: 16s, 0s, 0s;
+}
+#initiator:checked ~ .main .content #lb-3 {
+    right: 27%;
+    transition-delay: 16.2s, 0s, 0s;
+}
+#initiator:checked ~ .main .content label {
+    bottom: -40px;
+}
+#btn-1:checked ~ #lb-1,
+#btn-2:checked ~ #lb-2,
+#btn-3:checked ~ #lb-3 { 
+    background-color: lawngreen;
+    transform: rotate(-90deg);
+}
+#btn-1:checked ~ #lb-1::before,
+#btn-2:checked ~ #lb-2::before,
+#btn-3:checked ~ #lb-3::before {
+    width: 70%;
+    background-color: lawngreen;
+    top: -7px;
+    transition: 0.4s all;
+    transform: translate(17px, 2.5px) rotate(45deg);
+}
+#btn-1:checked ~ #lb-1::after,
+#btn-2:checked ~ #lb-2::after,
+#btn-3:checked ~ #lb-3::after {
+    width: 70%;
+    background-color: lawngreen;
+    bottom: -7px;
+    transition: 0.4s all;
+    transform: translate(17px, -2.5px) rotate(-45deg);
+}
+.main .inner {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    overflow: hidden;
+}
+.main .inner::before,
+.main .inner::after {
+    width: 25%;
+    height: 100%;
+    top: 0;
+    z-index: 1;
+    background-color: #111111;
+    transform-origin: 0%;
+    transition: 0.5s transform linear;
+}
+.main .inner::before {
+    left: 0%;
+    transform-origin: 100%;
+}
+.main .inner::after {
+    left: 75%;
+}
+#initiator:checked ~ .main .content .inner::before,
+#initiator:checked ~ .main .content .inner::after {
+    transform: scaleX(0);
+    transition-delay: 5.5s;
+}
+.inner .slider {
+    width: 300%;
+    height: 100%;
+    transition: 0.5s transform;
+}
+.slider > div {
+    position: relative;
+    width: 396px;
+    height: 100%;
+    float: left;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: white;
+}
+.slider > div:not(:first-child) {
+    transform: scale(0.3);
+    opacity: 0;
+}
+#initiator:checked ~ .main .slider > div:not(:first-child) {
+    transform: scale(1);
+    opacity: 1;
+    transition: 5s transform ease-out 8s,
+                5s opacity ease-in 8s;
+}
+.slider > div:not(:first-child)::before {
+    width: 2px;
+    height: 470px;
+    top: 15px;
+    left: -1px;
+    background-color: gray;
+}
+.slider > div:nth-child(1)::before {
+    width: 154px;
+    height: 204px;
+    top: 58px;
+    left: 8px;
+    transform: scale(1.2);
+    box-sizing: border-box;
+    border: 4px dashed red;
+    opacity: 0;
+    z-index: 1;
+}
+.slider > div:nth-child(1)::after {
+    width: 300px;
+    height: 400px;
+    top: 50px;
+    left: 50px;
+    background: url("Images/me.jpg") no-repeat;
+    opacity: 0;
+    box-shadow: 0 0 5px 2px black;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1)::before {
+    opacity: 1;
+    transform: scale(1);
+    transition: 1s all 12s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1)::after {
+    animation-name: photo;
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-delay: 8.5s;
+}
+.slider > div:nth-child(1) h2 {
+    padding: 5px 5px 15px;
+    margin: 0;
+    text-transform: uppercase;
+    color: transparent;
+    text-shadow: 0 0 50px transparent,
+                 0 0 60px transparent;
+    text-decoration: underline;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) h2 {
+    text-shadow: 0 0 0 black,
+                 0 0 3px darkred;
+    transition: 1.5s all linear 13s;
+}
+.slider > div:nth-child(1) span {
+    display: block;
+    color: transparent;
+    text-shadow: 0 0 40px transparent;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: left;
+}
+.slider > div:nth-child(1) p {
+    position: relative;
+    text-transform: uppercase;
+    color: transparent;
+    text-shadow: 0 0 40px transparent;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 5px;
+    margin-bottom: 35px;
+}
+.slider > div:nth-child(1) p:last-child {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+.slider > div:nth-child(1) p::after {
+    width: 100%;
+    height: 4px;
+    bottom: -20px;
+    background-color: orangered;
+    transform: scaleX(0);
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:not(:last-child)::after {
+    transform: scaleX(1);
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:nth-of-type(1)::after {
+    transition: 1.5s transform 14.7s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:nth-of-type(2)::after {
+    transition: 1.5s transform 14.9s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:nth-of-type(3)::after {
+    transition: 1.5s transform 15.1s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:nth-of-type(4)::after {
+    transition: 1.5s transform 15.3s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:nth-of-type(5)::after {
+    transition: 1.5s transform 15.5s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) span {
+    text-shadow: 0 0 0 grey;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p {
+    text-shadow: 0 0 0 black;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) span:nth-of-type(1) {
+    transition: 2s all ease-out 13.5s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) span:nth-of-type(2) {
+    transition: 2s all ease-out 13.7s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) span:nth-of-type(3) {
+    transition: 2s all ease-out 13.9s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) span:nth-of-type(4) {
+    transition: 2s all ease-out 14.1s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) span:nth-of-type(5) {
+    transition: 2s all ease-out 14.3s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) span:nth-of-type(6) {
+    transition: 2s all ease-out 14.5s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:nth-of-type(1) {
+    transition: 2s all ease-out 13.6s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:nth-of-type(2) {
+    transition: 2s all ease-out 13.8s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:nth-of-type(3) {
+    transition: 2s all ease-out 14s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:nth-of-type(4) {
+    transition: 2s all ease-out 14.2s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:nth-of-type(5) {
+    transition: 2s all ease-out 14.4s;
+}
+#initiator:checked ~ .main .slider > div:nth-child(1) p:nth-of-type(6) {
+    transition: 2s all ease-out 14.6s;
+}
+.right_side {
+    margin-left: 160px;
+}
+.slider > div:nth-child(2) {
+    padding: 10px;
+}
+.slider > div:nth-child(2) h2 {
+    padding: 0;
+    margin: 0;
+    text-transform: uppercase;
+    color: black;
+    text-shadow: 0 0 4px darkred;
+    text-decoration: underline;
+}
+.slider > div:not(:first-child) > p {
+    text-indent: 5px;
+    text-align: justify;
+    color: dimgray;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.slider > div:nth-child(2) p:nth-of-type(1),
+.slider > div:last-child > p:nth-last-of-type(1) {
+    text-indent: 0;
+    text-align: center;
+    text-transform: uppercase;
+    border: 2px dashed red;
+    color: black;
+}
+.contacts {
+    width: 386px;
+    height: 100px;
+    position: absolute;
+    left: 5px;
+    bottom: 10px;
+    background-color: grey;
+    box-shadow: 0 0 3px black;
+}
+.contacts h3 {
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 0 0 3px black;
+    font-size: 16px;
+    letter-spacing: 4px;
+    margin: 5px 0;
+}
+.contacts .phone {
+    margin-top: 20px;
+    float: left;
+    text-align: left;
+    padding: 5px;
+}
+.contacts .email {
+    margin-top: 20px;
+    float: right;
+    text-align: right;
+    padding: 5px;
+}
+.contacts span {
+    font-size: 10px;
+    font-weight: bold;
+    color: black;
+    text-transform: uppercase;
+}
+div.contacts p {
+    margin-top: 5px;
+    font-weight: bold;
+}
+.phone p {
+    color: darkred;
+    text-shadow: 0 0 1px black;
+}
+.email a {
+    text-decoration: none;
+    transition: 0.5s all;
+    font-weight: bold;
+}
+.email a:hover {
+    color: deepskyblue;
+    text-shadow: 0 0 5px black;
+}
+#btn-1:checked ~ .inner .slider {
+    transform: translateX(0px);
+}
+#btn-2:checked ~ .inner .slider {
+    transform: translateX(-396px);
+}
+#btn-3:checked ~ .inner .slider {
+    transform: translateX(-792px);
+}
